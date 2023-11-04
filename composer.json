@@ -1,0 +1,66 @@
+{
+    "name": "rollerworks/x509-validator",
+    "description": "X509 PEM-encoded validators. CA-Chain, OCSP, common-name compatibility, purpose",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "x509",
+        "tls",
+        "ssl",
+        "validator",
+        "ocsp"
+    ],
+    "authors": [
+        {
+            "name": "Sebastiaan Stok",
+            "email": "s.stok@rollerscapes.net"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "mlocati/ocsp": "^1.0",
+        "rollerworks/pdb-symfony-bridge": "^1.0",
+        "rollerworks/pdb-validator": "^1.0",
+        "symfony/translation-contracts": "^2.5 || ^3.0"
+    },
+    "require-dev": {
+        "paragonie/hidden-string": "^2.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^10.4.2",
+        "rollerscapes/standards": "^1.0",
+        "symfony/error-handler": "^6.3",
+        "symfony/http-client": "^6.3",
+        "symfony/phpunit-bridge": "^6.3 || ^7.0",
+        "symfony/translation": "^6.3 || ^7.0"
+    },
+    "suggest": {
+        "paragonie/hidden-string": "Safely privide the private-key for validation, without leaking secrets",
+        "symfony/http-client": "To validate certificate rovocation status",
+        "symfony/translation": "To translate violation messages"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Rollerworks\\Component\\X509Validator\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rollerworks\\Component\\X509Validator\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    }
+}
