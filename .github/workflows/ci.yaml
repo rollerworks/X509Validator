@@ -22,7 +22,7 @@ jobs:
         steps:
             -
                 name: 'Check out'
-                uses: 'actions/checkout@v2'
+                uses: 'actions/checkout@v4'
 
             -
                 name: 'Set up PHP'
@@ -38,7 +38,7 @@ jobs:
 
             -
                 name: 'Cache dependencies'
-                uses: 'actions/cache@v2'
+                uses: 'actions/cache@v3'
                 with:
                     path: '${{ steps.composer-cache.outputs.cache_dir }}'
                     key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -65,7 +65,7 @@ jobs:
         steps:
             -
                 name: 'Check out'
-                uses: 'actions/checkout@v2'
+                uses: 'actions/checkout@v4'
 
             -
                 name: 'Set up PHP'
@@ -81,7 +81,7 @@ jobs:
 
             -
                 name: 'Cache dependencies'
-                uses: 'actions/cache@v2'
+                uses: 'actions/cache@v3'
                 with:
                     path: '${{ steps.composer-cache.outputs.cache_dir }}'
                     key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
@@ -120,7 +120,7 @@ jobs:
         steps:
             -
                 name: 'Check out'
-                uses: 'actions/checkout@v2'
+                uses: 'actions/checkout@v4'
 
             -
                 name: 'Set up PHP'
@@ -136,7 +136,7 @@ jobs:
 
             -
                 name: 'Cache dependencies'
-                uses: 'actions/cache@v2'
+                uses: 'actions/cache@v3'
                 with:
                     path: '${{ steps.composer-cache.outputs.cache_dir }}'
                     key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
