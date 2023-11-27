@@ -41,7 +41,7 @@ The `CertificateValidator` and `KeyValidator` are to primary validators
 for validating a certificate or private-key encoded in PEM (base64), 
 DER (binary) is not supported.
 
-See (documentation)[docs/index.md] for usage of all validators.
+See [documentation](docs/index.md) for usage of all validators.
 
 ## Versioning
 
