@@ -17,6 +17,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Psr\Clock\ClockInterface;
 use Rollerworks\Component\PdbSfBridge\PdpManager;
 use Rollerworks\Component\PdbSfBridge\PdpMockProvider;
 use Rollerworks\Component\X509Validator\CertificateValidator;
@@ -28,30 +29,34 @@ use Rollerworks\Component\X509Validator\Violation\UnsupportedDomain;
 use Rollerworks\Component\X509Validator\Violation\UnsupportedPurpose;
 use Rollerworks\Component\X509Validator\Violation\WeakSignatureAlgorithm;
 use Rollerworks\Component\X509Validator\X509Info;
+use Symfony\Component\Clock\Clock;
 
 /**
  * @internal
  */
 final class CertificateValidatorTest extends TestCase
 {
+    private ClockInterface $clock;
     private CertificateValidator $certificateValidator;
     private PdpManager $pdpManager;
 
     protected function setUp(): void
     {
-        $this->pdpManager = PdpMockProvider::getPdpManager();
-        $this->certificateValidator = new class($this->pdpManager) extends CertificateValidator {
+        $this->clock = new class() implements ClockInterface {
             public ?string $now = '2013-05-29T14:12:14.000000+0000';
 
-            protected function getNow(): \DateTimeImmutable
+            public function now(): \DateTimeImmutable
             {
                 if (isset($this->now)) {
                     return new \DateTimeImmutable($this->now);
                 }
 
-                return parent::getNow();
+                return Clock::get()->now();
             }
         };
+
+        $this->pdpManager = PdpMockProvider::getPdpManager();
+        $this->certificateValidator = new CertificateValidator($this->pdpManager, clock: $this->clock);
     }
 
     #[Test]
@@ -124,7 +129,7 @@ final class CertificateValidatorTest extends TestCase
             CA;
 
         try {
-            $this->certificateValidator->now = null;
+            $this->clock->now = null;
             $this->certificateValidator->validateCertificate($certContents, ['root' => $ca]);
 
             self::fail('Exception was expected.');
