@@ -1,6 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property Rollerworks\\\\Component\\\\X509Validator\\\\CertificateValidator\\:\\:\\$now\\.$#"
+			message: "#^Access to an undefined property Psr\\\\Clock\\\\ClockInterface\\:\\:\\$now\\.$#"
 			count: 1
 			path: tests/CertificateValidatorTest.php

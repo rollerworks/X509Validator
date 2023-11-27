@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Rollerworks\Component\X509Validator;
 
 use Pdp\Domain;
+use Psr\Clock\ClockInterface;
 use Rollerworks\Component\PdbSfBridge\PdpManager as PublicSuffixManager;
 use Rollerworks\Component\X509Validator\Violation\CertificateHasExpired;
 use Rollerworks\Component\X509Validator\Violation\GlobalWildcard;
@@ -41,7 +42,8 @@ class CertificateValidator
     public function __construct(
         private readonly PublicSuffixManager $suffixManager,
         X509DataExtractor $dataExtractor = null,
-        CAResolver $caResolver = null
+        CAResolver $caResolver = null,
+        private ?ClockInterface $clock = null
     ) {
         $this->extractor = $dataExtractor ?? new X509DataExtractor();
         $this->caResolver = $caResolver ?? new CAResolverImpl();
@@ -171,9 +173,8 @@ class CertificateValidator
         $validator($data, $certificate, $this);
     }
 
-    /** @internal used for testing */
-    protected function getNow(): \DateTimeImmutable
+    private function getNow(): \DateTimeImmutable
     {
-        return new \DateTimeImmutable();
+        return $this->clock?->now() ?? new \DateTimeImmutable();
     }
 }

@@ -21,6 +21,7 @@
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "mlocati/ocsp": "^1.0",
+        "psr/clock": "^1.0",
         "rollerworks/pdb-symfony-bridge": "^1.0",
         "rollerworks/pdb-validator": "^1.0",
         "symfony/translation-contracts": "^2.5 || ^3.0"
@@ -30,6 +31,7 @@
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^10.4.2",
         "rollerscapes/standards": "^1.0",
+        "symfony/clock": "^6.3",
         "symfony/error-handler": "^6.3",
         "symfony/http-client": "^6.3",
         "symfony/phpunit-bridge": "^6.3 || ^7.0",
