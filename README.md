@@ -32,7 +32,7 @@ and install them for you.
 
 ## Requirements
 
-You need at least PHP 8.1, internet access is required if you want to
+You need at least PHP 8.2, internet access is required if you want to
 validate a certificate's OCSP status.
 
 ## Basic Usage

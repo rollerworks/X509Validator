@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "mlocati/ocsp": "^1.0",
