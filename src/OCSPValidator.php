@@ -20,6 +20,7 @@ use Ocsp\Ocsp;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Rollerworks\Component\X509Validator\Violation\CertificateIsRevoked;
+use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -64,6 +65,7 @@ readonly class OCSPValidator
     /**
      * @param array<string, string> $caList
      *
+     * @throws UnprocessablePEM
      * @throws CertificateIsRevoked
      */
     public function validateStatus(string $certificate, array $caList = []): void

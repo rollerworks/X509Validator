@@ -25,7 +25,6 @@ final class X509Info
     /** @var array<int, string> */
     public readonly array $emails;
     public readonly string $fingerprint;
-    /** @var array<string, mixed> */
     public readonly string $pubKey;
     public readonly string $signatureAlgorithm;
     public readonly \DateTimeImmutable $validFrom;
@@ -40,6 +39,7 @@ final class X509Info
      */
     public readonly array $allFields;
 
+    /** @param array<string, mixed> $fields */
     public function __construct(array $fields)
     {
         $this->altDomains = $fields['_alt_domains'] ?? [];

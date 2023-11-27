@@ -18,7 +18,7 @@ use Rollerworks\Component\X509Validator\Violation;
 final class UnsupportedDomain extends Violation
 {
     private readonly string $requiredPattern;
-    /** @var array<int, string> */
+    /** @var array<array-key, string> */
     private readonly array $supported;
 
     public function __construct(string $requiredPattern, string ...$supported)

@@ -21,13 +21,10 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-use Rollerworks\Component\PdbSfBridge\PdpMockProvider;
 use Rollerworks\Component\X509Validator\OCSPValidator;
 use Rollerworks\Component\X509Validator\TranslatableArgument;
 use Rollerworks\Component\X509Validator\Violation\CertificateIsRevoked;
 use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\ErrorHandler\BufferingLogger;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -41,26 +38,13 @@ final class OCSPValidatorTest extends TestCase
 {
     use ProphecyTrait;
 
-    private ?OCSPValidator $certificateValidator = null;
-    private static ?Psr16Cache $cache;
-
-    public static function setUpBeforeClass(): void
-    {
-        self::$cache = new Psr16Cache(new ArrayAdapter());
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        self::$cache = null;
-    }
+    private OCSPValidator $certificateValidator;
 
     protected function setUp(): void
     {
         /** @var HttpClientInterface&LoggerAwareInterface $httpClient */
         $httpClient = HttpClient::create();
         $httpClient->setLogger(new BufferingLogger());
-
-        $this->pdpManager = PdpMockProvider::getPdpManager();
 
         $this->certificateValidator = new OCSPValidator(
             httpClient: $httpClient,
@@ -84,7 +68,7 @@ final class OCSPValidatorTest extends TestCase
             self::fail('Exception was expected.');
         } catch (UnprocessablePEM $e) {
             self::assertSame(['name' => ''], $e->getParameters());
-            self::assertSame($certContents, $e->getPrevious()->getPrevious()->getMessage());
+            self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
         }
     }
 
@@ -103,7 +87,7 @@ final class OCSPValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnprocessablePEM $e) {
-            self::assertSame($certContents, $e->getPrevious()->getPrevious()->getMessage());
+            self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
             self::assertSame([
                 'name' => '',
             ], $e->getParameters());

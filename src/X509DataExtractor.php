@@ -21,6 +21,7 @@ final class X509DataExtractor
     private ?string $hash = null;
     private ?X509Info $fields = null;
 
+    /** @throws UnprocessablePEM */
     public function extractRawData(string $contents, string $name = '', bool $withPublicKey = false): X509Info
     {
         $hash = hash('sha256', $contents);

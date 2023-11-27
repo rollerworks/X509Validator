@@ -34,8 +34,8 @@ use Rollerworks\Component\X509Validator\X509Info;
  */
 final class CertificateValidatorTest extends TestCase
 {
-    private ?CertificateValidator $certificateValidator = null;
-    private ?PdpManager $pdpManager;
+    private CertificateValidator $certificateValidator;
+    private PdpManager $pdpManager;
 
     protected function setUp(): void
     {
@@ -70,7 +70,7 @@ final class CertificateValidatorTest extends TestCase
             self::fail('Exception was expected.');
         } catch (UnprocessablePEM $e) {
             self::assertSame(['name' => ''], $e->getParameters());
-            self::assertSame($certContents, $e->getPrevious()->getPrevious()->getMessage());
+            self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
         }
     }
 
@@ -292,7 +292,7 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnprocessablePEM $e) {
-            self::assertSame($certContents, $e->getPrevious()->getPrevious()->getMessage());
+            self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
             self::assertSame([
                 'name' => '',
             ], $e->getParameters());
