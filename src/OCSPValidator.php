@@ -25,15 +25,15 @@ use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class OCSPValidator
+readonly class OCSPValidator
 {
-    private readonly X509DataExtractor $extractor;
-    private readonly CAResolver $caResolver;
-    private readonly LoggerInterface $logger;
-    private readonly Ocsp $ocsp;
-
+    private X509DataExtractor $extractor;
+    private HttpClientInterface $httpClient;
     private CertificateLoader $certificateLoader;
     private CertificateInfo $certificateInfo;
+    private LoggerInterface $logger;
+    private CAResolver $caResolver;
+    private Ocsp $ocsp;
 
     /**
      * @param HttpClientInterface|null $httpClient    If not provided will try to use the best possible
