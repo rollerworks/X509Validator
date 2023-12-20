@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Rollerworks\Component\X509Validator;
 
 use Pdp\Domain;
+use Pdp\PublicSuffixList;
 use Psr\Clock\ClockInterface;
-use Rollerworks\Component\PdbSfBridge\PdpManager as PublicSuffixManager;
 use Rollerworks\Component\X509Validator\Violation\CertificateHasExpired;
 use Rollerworks\Component\X509Validator\Violation\GlobalWildcard;
 use Rollerworks\Component\X509Validator\Violation\UnsupportedDomain;
@@ -40,7 +40,7 @@ class CertificateValidator
      * @param CAResolver|null        $caResolver    Use a custom CAResolver that stores CAs
      */
     public function __construct(
-        private readonly PublicSuffixManager $suffixManager,
+        private readonly PublicSuffixList $publicSuffixList,
         X509DataExtractor $dataExtractor = null,
         CAResolver $caResolver = null,
         private ?ClockInterface $clock = null
@@ -94,8 +94,6 @@ class CertificateValidator
     /** @param array<array-key, string> $domains */
     private function validateDomainsWildcard(array $domains): void
     {
-        $rules = $this->suffixManager->getPublicSuffixList();
-
         foreach ($domains as $domain) {
             if (! str_contains($domain, '*')) {
                 continue;
@@ -105,7 +103,7 @@ class CertificateValidator
                 throw new GlobalWildcard($domain, '*');
             }
 
-            $domainInfo = $rules->resolve(Domain::fromIDNA2008($domain));
+            $domainInfo = $this->publicSuffixList->resolve(Domain::fromIDNA2008($domain));
 
             if (! $domainInfo->suffix()->isKnown()) {
                 return;

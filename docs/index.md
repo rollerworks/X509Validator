@@ -30,8 +30,12 @@ See [Working with validation Violations] below.
 
 ## Using the CertificateValidator
 
-Note that `CertificateValidator` requires a `Rollerworks\Component\PdbSfBridge\PdpManager`
-instance, see https://github.com/rollerworks/PdbSfBridge to set-up a new instance.
+Note that `CertificateValidator` requires a `Pdp\PublicSuffixList`
+instance, see https://github.com/jeremykendall/php-domain-parser#usage
+to set-up a new instance.
+
+**Tip**: For Symfony use the https://github.com/rollerworks/PdbSfBridge
+with out-of-the-box Framework integration.
 
 The `CertificateValidator` validates:
 
@@ -42,13 +46,13 @@ The `CertificateValidator` validates:
   or public-suffix length violations;
 
 ```php
-use Rollerworks\Component\PdbSfBridge\PdpManager;
+use Pdp\PublicSuffixList;
 use Rollerworks\Component\X509Validator\CertificateValidator;
 
-/** @var PdpManager $pdbManager */
-$pdbManager = ...;
+/** @var PublicSuffixList $publicSuffixList */
+$publicSuffixList = ...;
 
-$validator = new CertificateValidator($pdbManager, /*$dataExtractor*/);
+$validator = new CertificateValidator($publicSuffixList, /*$dataExtractor*/);
 
  // PEM X509 encoded certificate string
 $certificate = '';
@@ -182,7 +186,12 @@ The `OCSPValidator` validates the revocation status of a certificate,
 for this to work internet access is required, and the certificate must
 have a CA.
 
-First make sure the ``
+First make sure the `symfony/http-client` package is installed, any 
+`Symfony\Contracts\HttpClient\HttpClientInterface` instance is accepted.
+
+```bash
+php composer.phar require symfony/http-client
+```
 
 This validator should be called after general validation with the `CertificateValidator`.
 
