@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Rollerworks\Component\X509Validator\Tests;
 
+use Pdp\PublicSuffixList;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Clock\ClockInterface;
-use Rollerworks\Component\PdbSfBridge\PdpManager;
 use Rollerworks\Component\PdbSfBridge\PdpMockProvider;
 use Rollerworks\Component\X509Validator\CertificateValidator;
 use Rollerworks\Component\X509Validator\TranslatableArgument;
@@ -38,7 +38,7 @@ final class CertificateValidatorTest extends TestCase
 {
     private ClockInterface $clock;
     private CertificateValidator $certificateValidator;
-    private PdpManager $pdpManager;
+    private PublicSuffixList $publicSuffixList;
 
     protected function setUp(): void
     {
@@ -55,8 +55,8 @@ final class CertificateValidatorTest extends TestCase
             }
         };
 
-        $this->pdpManager = PdpMockProvider::getPdpManager();
-        $this->certificateValidator = new CertificateValidator($this->pdpManager, clock: $this->clock);
+        $this->publicSuffixList = PdpMockProvider::getPdpManager()->getPublicSuffixList();
+        $this->certificateValidator = new CertificateValidator($this->publicSuffixList, clock: $this->clock);
     }
 
     #[Test]
@@ -143,7 +143,7 @@ final class CertificateValidatorTest extends TestCase
     #[DataProvider('provideValidate_certificate_host_contains_global_wildcardCases')]
     public function validate_certificate_host_contains_global_wildcard(array $domains, string $provided, string $suffixPattern): void
     {
-        $this->certificateValidator = new FakedCertificateValidator($this->pdpManager);
+        $this->certificateValidator = new FakedCertificateValidator($this->publicSuffixList);
         $this->certificateValidator->setFields([
             '_domains' => $domains,
             '_validTo' => new \DateTimeImmutable('+1 year'),
@@ -179,7 +179,7 @@ final class CertificateValidatorTest extends TestCase
     #[DoesNotPerformAssertions]
     public function validate_certificate_host_wildcard_without_known_prefix_does_not_fail(array $domains): void
     {
-        $this->certificateValidator = new FakedCertificateValidator($this->pdpManager);
+        $this->certificateValidator = new FakedCertificateValidator($this->publicSuffixList);
         $this->certificateValidator->setFields([
             '_domains' => $domains,
             '_validTo' => new \DateTimeImmutable('+1 year'),

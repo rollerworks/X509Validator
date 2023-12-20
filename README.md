@@ -24,7 +24,7 @@ to these validators with the Symfony Validator component.
 To install this package, add `rollerworks/x509-validator` to your composer.json:
 
 ```bash
-$ php composer.phar require rollerworks/x509-validator
+php composer.phar require rollerworks/x509-validator
 ```
 
 Now, [Composer][composer] will automatically download all required files,
