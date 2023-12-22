@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Unable to process PEM X.509 data of private key "{name}". Only PEM encoded X.509 files are supported.</source>
+                <target>Unable to process PEM X.509 data of private key "{name}". Only PEM encoded X.509 files are supported.</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>The certificate public-key does not match with the private-key "public-key" data.</source>
+                <target>The certificate public-key does not match with the private-key "public-key" data.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>The certificate does not match with the provided private-key.</source>
+                <target>The certificate does not match with the provided private-key.</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>This certificate was signed using the weak "{provided}" algorithm. Expected at least algorithm "{expected}".".</source>
+                <target>This certificate was signed using the weak "{provided}" algorithm. Expected at least algorithm "{expected}".".</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>The private-key bits-size {provided} is too low. Expected at least {expected} bits.</source>
+                <target>The private-key bits-size {provided} is too low. Expected at least {expected} bits.</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>The certificate with serial-number "{serial}" was marked as revoked on { revoked_on, date, short } with ({reason_code}) {reason}.</source>
+                <target>The certificate with serial-number "{serial}" was marked as revoked on { revoked_on, date, short } with ({reason_code}) {reason}.</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>The certificate with common-name "{common_name}" contains a CA extension. Expected a leaf certificate.</source>
+                <target>The certificate with common-name "{common_name}" contains a CA extension. Expected a leaf certificate.</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>This certificate has expired on { expired_on, date, short }.</source>
+                <target>This certificate has expired on { expired_on, date, short }.</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>This certificate should support host pattern "{required_pattern}". But only the following patterns are {supported}</source>
+                <target>This certificate should support host pattern "{required_pattern}". But only the following patterns are {supported}</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>This certificate does not support the {required_purpose}</source>
+                <target>This certificate does not support the {required_purpose}</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>The certificate host "{provided}" contains an invalid global-wildcard pattern.</source>
+                <target>The certificate host "{provided}" contains an invalid global-wildcard pattern.</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>The certificate host "{provided}" contains an invalid public-suffix wildcard pattern "{suffix_pattern}".</source>
+                <target>The certificate host "{provided}" contains an invalid public-suffix wildcard pattern "{suffix_pattern}".</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Unable to resolve CA of certificate "{name}".</source>
+                <target>Unable to resolve CA of certificate "{name}".</target>
+            </trans-unit>
+
+            <!-- Revocation reason -->
+            <trans-unit id="14">
+                <source>unspecified (no specific reason was given).</source>
+                <target>unspecified (no specific reason was given).</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>the private key associated with the certificate has been compromised.</source>
+                <target>the private key associated with the certificate has been compromised.</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>the CAs private key is has been compromised and is in the possession of an unauthorized individual. When a CAs private key is revoked, this results in all certificates issued by the CA that are signed using the private key associated with the revoked certificate being considered revoked.</source>
+                <target>the CAs private key is has been compromised and is in the possession of an unauthorized individual. When a CAs private key is revoked, this results in all certificates issued by the CA that are signed using the private key associated with the revoked certificate being considered revoked.</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>the user has terminated their relationship with the organization indicated in the Distinguished Name attribute of the certificate. This revocation code is typically used when an individual is terminated or has resigned from an organization.</source>
+                <target>the user has terminated their relationship with the organization indicated in the Distinguished Name attribute of the certificate. This revocation code is typically used when an individual is terminated or has resigned from an organization.</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>a replacement certificate has been issued to a user.</source>
+                <target>a replacement certificate has been issued to a user.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>the CA is decommissioned, no longer to be used.</source>
+                <target>the CA is decommissioned, no longer to be used.</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>the certificate (public-key or attribute certificate) was revoked because a privilege contained within that certificate has been withdrawn.</source>
+                <target>the certificate (public-key or attribute certificate) was revoked because a privilege contained within that certificate has been withdrawn.</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</source>
+                <target>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
