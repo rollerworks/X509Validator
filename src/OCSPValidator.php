@@ -52,6 +52,10 @@ readonly class OCSPValidator
         X509DataExtractor $dataExtractor = null,
         Ocsp $ocsp = null
     ) {
+        if ($httpClient === null && ! class_exists(HttpClient::class)) {
+            throw new \LogicException(sprintf('The "%s" class requires a "%s" instance, or that the Symfony HttpClient is available. Try running "composer require symfony/http-client".', self::class, HttpClientInterface::class));
+        }
+
         $this->extractor = $dataExtractor ?? new X509DataExtractor();
         $this->httpClient = $httpClient ?? HttpClient::create();
         $this->logger = $logger ?? new NullLogger();

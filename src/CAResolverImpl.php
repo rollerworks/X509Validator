@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Rollerworks\Component\X509Validator;
 
 use Rollerworks\Component\X509Validator\Violation\MissingCAExtension;
-use Rollerworks\Component\X509Validator\Violation\ToManyCAsProvided;
+use Rollerworks\Component\X509Validator\Violation\TooManyCAsProvided;
 use Rollerworks\Component\X509Validator\Violation\UnableToResolveParent;
 
 class CAResolverImpl implements CAResolver
@@ -35,8 +35,8 @@ class CAResolverImpl implements CAResolver
     {
         // Safety check to prevent DoS attacks
         // Normally only two parents are used, more than three is exceptional
-        if (\count($caList) > 3) {
-            throw new ToManyCAsProvided();
+        if (\count($caList) > 4) {
+            throw new TooManyCAsProvided();
         }
 
         $certData = $this->extractor->extractRawData($certificate, '', true);
@@ -84,7 +84,9 @@ class CAResolverImpl implements CAResolver
             return new CA($contents);
         }
 
-        throw new UnableToResolveParent($this->extractor->extractRawData($certificate)->commonName);
+        $x509Info = $this->extractor->extractRawData($certificate);
+
+        throw new UnableToResolveParent($x509Info->commonName, $x509Info->allFields['issuer']['commonName']);
     }
 
     private function validateCA(X509Info $data): void

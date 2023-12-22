@@ -51,8 +51,8 @@
                 <target>The certificate host "{provided}" contains an invalid public-suffix wildcard pattern "{suffix_pattern}".</target>
             </trans-unit>
             <trans-unit id="13">
-                <source>Unable to resolve CA of certificate "{name}".</source>
-                <target>Unable to resolve CA of certificate "{name}".</target>
+                <source>Unable to resolve the CA of certificate "{name}", issued by {parent}.</source>
+                <target>Unable to resolve the CA of certificate "{name}", issued by {parent}.</target>
             </trans-unit>
 
             <!-- Revocation reason -->
@@ -87,6 +87,11 @@
             <trans-unit id="21">
                 <source>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</source>
                 <target>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</target>
+            </trans-unit>
+
+            <trans-unit id="22">
+                <source>Too many CAs were provided. A maximum of 4 is accepted.</source>
+                <target>Too many CAs were provided. A maximum of 4 is accepted.</target>
             </trans-unit>
         </body>
     </file>

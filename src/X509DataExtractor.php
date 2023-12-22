@@ -46,7 +46,7 @@ final class X509DataExtractor
         }
 
         try {
-            $fingerprint = openssl_x509_fingerprint($x509Read, $rawData['signatureTypeSN']) ?: '';
+            $fingerprint = @openssl_x509_fingerprint($x509Read, $rawData['signatureTypeSN']) ?: '';
         } catch (\Throwable) {
             $fingerprint = '';
         }

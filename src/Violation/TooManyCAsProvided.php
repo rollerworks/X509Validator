@@ -15,15 +15,15 @@ namespace Rollerworks\Component\X509Validator\Violation;
 
 use Rollerworks\Component\X509Validator\Violation;
 
-final class ToManyCAsProvided extends Violation
+final class TooManyCAsProvided extends Violation
 {
     public function __construct()
     {
-        parent::__construct('To many CAs were provided. A maximum of 3 is accepted.');
+        parent::__construct('Too many CAs were provided. A maximum of 4 is accepted.');
     }
 
     public function getTranslatorMsg(): string
     {
-        return 'tls.violation.to_many_ca_provided';
+        return 'Too many CAs were provided. A maximum of 4 is accepted.';
     }
 }
