@@ -17,22 +17,18 @@ use Rollerworks\Component\X509Validator\Violation;
 
 final class UnableToResolveParent extends Violation
 {
-    private readonly string $name;
-
-    public function __construct(string $name, int $code = 1)
+    public function __construct(private readonly string $name, private readonly string $issuer, int $code = 1)
     {
-        parent::__construct(sprintf('Unable to resolve the parent CA of certificate "%s".', $name), $code);
-
-        $this->name = $name;
+        parent::__construct(sprintf('Unable to resolve the parent CA of certificate "%s", issued by "%s".', $name, $issuer), $code);
     }
 
     public function getTranslatorMsg(): string
     {
-        return 'Unable to resolve the CA of certificate "{name}".';
+        return 'Unable to resolve the CA of certificate "{name}", issued by {parent}.';
     }
 
     public function getParameters(): array
     {
-        return ['name' => $this->name];
+        return ['name' => $this->name, 'parent' => $this->issuer];
     }
 }

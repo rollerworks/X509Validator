@@ -35,7 +35,7 @@ class CAResolverImpl implements CAResolver
     {
         // Safety check to prevent DoS attacks
         // Normally only two parents are used, more than three is exceptional
-        if (\count($caList) > 3) {
+        if (\count($caList) > 4) {
             throw new ToManyCAsProvided();
         }
 
@@ -84,7 +84,9 @@ class CAResolverImpl implements CAResolver
             return new CA($contents);
         }
 
-        throw new UnableToResolveParent($this->extractor->extractRawData($certificate)->commonName);
+        $x509Info = $this->extractor->extractRawData($certificate);
+
+        throw new UnableToResolveParent($x509Info->commonName, $x509Info->allFields['issuer']['commonName']);
     }
 
     private function validateCA(X509Info $data): void
