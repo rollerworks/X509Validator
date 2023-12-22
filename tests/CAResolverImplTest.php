@@ -19,7 +19,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Rollerworks\Component\X509Validator\CA;
 use Rollerworks\Component\X509Validator\CAResolverImpl as CAResolver;
 use Rollerworks\Component\X509Validator\Violation\MissingCAExtension;
-use Rollerworks\Component\X509Validator\Violation\ToManyCAsProvided;
+use Rollerworks\Component\X509Validator\Violation\TooManyCAsProvided;
 use Rollerworks\Component\X509Validator\Violation\UnableToResolveParent;
 use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
 
@@ -98,7 +98,7 @@ final class CAResolverImplTest extends TestCase
     {
         $resolver = new CAResolver();
 
-        $this->expectException(ToManyCAsProvided::class);
+        $this->expectException(TooManyCAsProvided::class);
 
         $resolver->resolve(
             <<<'CERT'

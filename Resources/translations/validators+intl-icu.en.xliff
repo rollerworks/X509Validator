@@ -88,6 +88,11 @@
                 <source>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</source>
                 <target>it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.</target>
             </trans-unit>
+
+            <trans-unit id="22">
+                <source>Too many CAs were provided. A maximum of 4 is accepted.</source>
+                <target>Too many CAs were provided. A maximum of 4 is accepted.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
