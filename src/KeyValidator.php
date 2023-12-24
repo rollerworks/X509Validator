@@ -14,9 +14,8 @@ declare(strict_types=1);
 namespace Rollerworks\Component\X509Validator;
 
 use ParagonIE\HiddenString\HiddenString;
-use Rollerworks\Component\X509Validator\Violation\CertificateMismatch;
 use Rollerworks\Component\X509Validator\Violation\KeyBitsTooLow;
-use Rollerworks\Component\X509Validator\Violation\PublicKeyMismatch;
+use Rollerworks\Component\X509Validator\Violation\PrivateKeyMismatch;
 use Rollerworks\Component\X509Validator\Violation\UnprocessableKey;
 use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
 
@@ -31,14 +30,14 @@ class KeyValidator
      * matches with the public key of the certificate. And Then performs
      * an additional check to ensure the key was not tempered with.
      *
-     * @param HiddenString|string $privateKey  Private-key as PEM X509. Use HiddenString to prevent leaking
-     *                                         sensitive information
+     * @param HiddenString|string $privateKey  Private-key as PEM X509.
+     *                                         Use HiddenString to prevent leaking sensitive information
      * @param string              $certificate Certificate as PEM X509 format string
      *
-     * @throws UnprocessablePEM    when the data cannot be parsed or processed
-     * @throws PublicKeyMismatch   when the public-keys don't match
-     * @throws CertificateMismatch when the private doesn't match the certificate
-     * @throws KeyBitsTooLow       when the private bits count is less than $minimumBitCount
+     * @throws UnprocessablePEM   when the certificate cannot be parsed or processed
+     * @throws UnprocessableKey   when the private-key cannot be parsed or processed
+     * @throws PrivateKeyMismatch when the private doesn't match the certificate
+     * @throws KeyBitsTooLow      when the private bits count is less than $minimumBitCount
      */
     public function validate(HiddenString | string $privateKey, string $certificate, int $minimumBitCount = self::MINIMUM_BIT_COUNT): void
     {
@@ -64,7 +63,7 @@ class KeyValidator
             }
 
             if (! @openssl_x509_check_private_key($certR, $privateR)) {
-                throw new PublicKeyMismatch();
+                throw new PrivateKeyMismatch();
             }
 
             // Note: technically it's rather difficult to replace the public-key
@@ -81,7 +80,7 @@ class KeyValidator
             }
 
             if (! @openssl_private_decrypt($encrypted, $decrypted, $privateR, \OPENSSL_PKCS1_OAEP_PADDING) || $decrypted !== $original) {
-                throw new CertificateMismatch();
+                throw new PrivateKeyMismatch();
             }
 
             $details = @openssl_pkey_get_details($privateR);

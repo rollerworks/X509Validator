@@ -29,7 +29,7 @@ final class UnsupportedPurpose extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'This certificate does not support the purpose: {required_purpose}';
+        return 'The certificate does not support the purpose: {required_purpose}.';
     }
 
     public function getParameters(): array

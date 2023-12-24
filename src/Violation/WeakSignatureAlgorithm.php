@@ -30,7 +30,7 @@ final class WeakSignatureAlgorithm extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'This certificate was signed using the weak "{provided}" algorithm. Expected at least algorithm "{expected}".".';
+        return 'The certificate was signed using the weak "{provided}" algorithm. Expected at least algorithm "{expected}".".';
     }
 
     public function getParameters(): array

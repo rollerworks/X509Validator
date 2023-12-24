@@ -16,7 +16,7 @@ namespace Rollerworks\Component\X509Validator\Violation;
 use Rollerworks\Component\X509Validator\Violation;
 
 /**
- * This exception class is used for when the data cannot be processed or parse.
+ * This exception class is used for when the data cannot be processed or parsed.
  */
 final class UnprocessablePEM extends Violation
 {
@@ -28,7 +28,11 @@ final class UnprocessablePEM extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'Unable to process PEM X.509 data of certificate "{name}". Only PEM encoded X.509 files are supported.';
+        if ($this->certName === '') {
+            return 'Unable to process certificate. Only PEM encoded X.509 files are supported.';
+        }
+
+        return 'Unable to process certificate "{name}". Only PEM encoded X.509 files are supported.';
     }
 
     public function getParameters(): array

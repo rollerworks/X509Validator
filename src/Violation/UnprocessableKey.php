@@ -24,6 +24,6 @@ final class UnprocessableKey extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'Unable to process PEM X.509 data of private key "{name}". Only PEM encoded X.509 files are supported.';
+        return 'Unable to process private key. Only PEM encoded X.509 files are supported.';
     }
 }

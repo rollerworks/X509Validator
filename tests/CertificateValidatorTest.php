@@ -36,6 +36,8 @@ use Symfony\Component\Clock\Clock;
  */
 final class CertificateValidatorTest extends TestCase
 {
+    use TranslatorAssertionTrait;
+
     private ClockInterface $clock;
     private CertificateValidator $certificateValidator;
     private PublicSuffixList $publicSuffixList;
@@ -76,6 +78,7 @@ final class CertificateValidatorTest extends TestCase
         } catch (UnprocessablePEM $e) {
             self::assertSame(['name' => ''], $e->getParameters());
             self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
+            self::assertTranslationEquals('Unable to process certificate. Only PEM encoded X.509 files are supported.', $e);
         }
     }
 
@@ -135,6 +138,7 @@ final class CertificateValidatorTest extends TestCase
             self::fail('Exception was expected.');
         } catch (CertificateHasExpired $e) {
             self::assertEquals(['expired_on' => new \DateTimeImmutable('2018-07-26T13:02:33.000000+0000')], $e->getParameters());
+            self::assertTranslationEquals('The certificate has expired on 7/26/18.', $e);
         }
     }
 
@@ -159,6 +163,12 @@ final class CertificateValidatorTest extends TestCase
                 'provided' => $provided,
                 'suffix_pattern' => $suffixPattern,
             ], $e->getParameters());
+
+            if ($provided === '*') {
+                self::assertTranslationEquals('The certificate host "*" contains an invalid global-wildcard pattern.', $e);
+            } else {
+                self::assertTranslationEquals(sprintf('The certificate host "%s" contains an invalid public-suffix wildcard pattern "%s".', $provided, $suffixPattern), $e);
+            }
         }
     }
 
@@ -275,6 +285,8 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (WeakSignatureAlgorithm $e) {
+            self::assertTranslationEquals('The certificate was signed using the weak "sha1WithRSAEncryption" algorithm. Expected at least algorithm "SHA256".".', $e);
+
             self::assertSame([
                 'expected' => 'SHA256',
                 'provided' => 'sha1WithRSAEncryption',
@@ -297,6 +309,8 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnprocessablePEM $e) {
+            self::assertTranslationEquals('Unable to process certificate. Only PEM encoded X.509 files are supported.', $e);
+
             self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
             self::assertSame([
                 'name' => '',
@@ -355,6 +369,8 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnsupportedPurpose $e) {
+            self::assertTranslationEquals('The certificate does not support the purpose: S/MIME signing.', $e);
+
             self::assertEquals(['required_purpose' => new TranslatableArgument('S/MIME signing', domain: 'messages')], $e->getParameters());
         }
     }
@@ -397,6 +413,8 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnsupportedDomain $e) {
+            self::assertTranslationEquals(sprintf('The certificate should support host pattern "%s". But only the following patterns are supported: %s.', $hostPattern, $supported), $e);
+
             self::assertSame(['required_pattern' => $hostPattern, 'supported' => $supported], $e->getParameters());
         }
     }

@@ -28,7 +28,7 @@ final class CertificateHasExpired extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'This certificate has expired on { expired_on, date, short }.';
+        return 'The certificate has expired on { expired_on, date, short }.';
     }
 
     public function getParameters(): array

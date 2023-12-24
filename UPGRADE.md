@@ -1,6 +1,12 @@
 UPGRADE
 =======
 
+
+## Upgrade FROM 0.2.1 to 0.2.2
+
+* Translation ids have changed to fix some mismatches.
+* The `PublicKeyMismatch` violation was removed.
+
 ## Upgrade FROM 0.1.0 to 0.2.0
 
 * The `CertificateValidator` now expects a `\Pdp\PublicSuffixList` instance 

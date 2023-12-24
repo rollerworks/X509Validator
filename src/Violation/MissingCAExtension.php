@@ -24,7 +24,7 @@ final class MissingCAExtension extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'tls.violation.certificate_is_ca';
+        return 'Certificate with common-name "{common_name}" does not contain required CA extension.';
     }
 
     public function getParameters(): array

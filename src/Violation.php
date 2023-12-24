@@ -37,6 +37,6 @@ abstract class Violation extends \InvalidArgumentException implements Translatab
 
     public function trans(TranslatorInterface $translator, string $locale = null): string
     {
-        return $translator->trans($this->getMessage(), $this->getParameters(), 'validators', $locale);
+        return $translator->trans($this->getTranslatorMsg(), $this->getParameters(), 'validators', $locale);
     }
 }
