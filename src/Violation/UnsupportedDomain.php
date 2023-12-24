@@ -31,7 +31,7 @@ final class UnsupportedDomain extends Violation
 
     public function getTranslatorMsg(): string
     {
-        return 'This certificate should support host pattern "{required_pattern}". But only the following patterns are supported: {supported}';
+        return 'The certificate should support host pattern "{required_pattern}". But only the following patterns are supported: {supported}.';
     }
 
     public function getParameters(): array

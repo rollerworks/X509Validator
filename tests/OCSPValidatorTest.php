@@ -36,6 +36,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class OCSPValidatorTest extends TestCase
 {
     use ProphecyTrait;
+    use TranslatorAssertionTrait;
 
     private OCSPValidator $certificateValidator;
 
@@ -68,28 +69,8 @@ final class OCSPValidatorTest extends TestCase
         } catch (UnprocessablePEM $e) {
             self::assertSame(['name' => ''], $e->getParameters());
             self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
-        }
-    }
 
-    #[Test]
-    public function validate_certificate_data_is_readable(): void
-    {
-        $certContents = <<<'CERT'
-            -----BEGIN CERTIFICATE-----
-            MIIDKzCCAhMCCQDZHE66hI+pmjANBgkqhkiG9w0BAQUFADBUMRowGAYDVQQDDBFS
-            AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            -----END CERTIFICATE-----
-            CERT;
-
-        try {
-            $this->certificateValidator->validateStatus($certContents);
-
-            self::fail('Exception was expected.');
-        } catch (UnprocessablePEM $e) {
-            self::assertSame($certContents, $e->getPrevious()?->getPrevious()?->getMessage());
-            self::assertSame([
-                'name' => '',
-            ], $e->getParameters());
+            self::assertTranslationEquals('Unable to process certificate. Only PEM encoded X.509 files are supported.', $e);
         }
     }
 
@@ -220,9 +201,11 @@ final class OCSPValidatorTest extends TestCase
             self::assertEquals([
                 'revoked_on' => new \DateTimeImmutable('2023-03-16T19:37:43.000000+0000'),
                 'reason_code' => 'unspecified',
-                'reason' => new TranslatableArgument('unspecified (no specific reason was given).'),
+                'reason' => new TranslatableArgument('no specific reason was given'),
                 'serial' => '7459839413651464540545224973334900563',
             ], $e->getParameters());
+
+            self::assertTranslationEquals('The certificate with serial-number "7459839413651464540545224973334900563" was marked as revoked on 3/16/23 with reason: (unspecified) no specific reason was given.', $e);
         }
     }
 

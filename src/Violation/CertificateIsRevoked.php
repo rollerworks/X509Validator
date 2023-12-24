@@ -47,16 +47,16 @@ final class CertificateIsRevoked extends Violation
     ];
 
     private const TRANSLATOR_ID = [
-        'unspecified' => 'unspecified (no specific reason was given).',
-        'keyCompromise' => 'the private key associated with the certificate has been compromised.',
-        'cACompromise' => 'the CA\'s private key is has been compromised and is in the possession of an unauthorized individual. When a CA\'s private key is revoked, this results in all certificates issued by the CA that are signed using the private key associated with the revoked certificate being considered revoked.',
-        'affiliationChanged' => 'the user has terminated their relationship with the organization indicated in the Distinguished Name attribute of the certificate. This revocation code is typically used when an individual is terminated or has resigned from an organization.',
-        'superseded' => 'a replacement certificate has been issued to a user.',
-        'cessationOfOperation' => 'the CA is decommissioned, no longer to be used.',
+        'unspecified' => 'no specific reason was given',
+        'keyCompromise' => 'the private key associated with the certificate has been compromised',
+        'cACompromise' => 'the CA\'s private key is has been compromised and is in the possession of an unauthorized individual',
+        'affiliationChanged' => 'the user has terminated their relationship with the organization indicated in the Distinguished Name attribute of the certificate',
+        'superseded' => 'a replacement certificate has been issued to a user',
+        'cessationOfOperation' => 'the CA is decommissioned, no longer to be used',
         'certificateHold' => 'the certificate is currently on hold, try again later',
         'removeFromCRL' => 'certificate revocation is removed', // This might possible not be an error
-        'privilegeWithdrawn' => 'the certificate (public-key or attribute certificate) was revoked because a privilege contained within that certificate has been withdrawn.',
-        'aACompromise' => 'it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised.',
+        'privilegeWithdrawn' => 'the certificate (public-key or attribute certificate) was revoked because a privilege contained within that certificate has been withdrawn',
+        'aACompromise' => 'it is known or suspected that aspects of the AA validated in the attribute certificate have been compromised',
     ];
 
     private readonly ?\DateTimeInterface $revokedOn;

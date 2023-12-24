@@ -32,6 +32,7 @@
         "rollerscapes/standards": "^1.0",
         "rollerworks/pdb-symfony-bridge": "^1.0",
         "symfony/clock": "^6.3",
+        "symfony/config": "^6.4 || ^7.0",
         "symfony/error-handler": "^6.3",
         "symfony/http-client": "^6.3",
         "symfony/phpunit-bridge": "^6.3 || ^7.0",
