@@ -17,8 +17,11 @@ use Rollerworks\Component\X509Validator\Violation;
 
 final class UnableToResolveParent extends Violation
 {
-    public function __construct(private readonly string $name, private readonly string $issuer, int $code = 1)
-    {
+    public function __construct(
+        public readonly string $name,
+        public readonly string $issuer,
+        int $code = 1
+    ) {
         parent::__construct(sprintf('Unable to resolve the parent CA of certificate "%s", issued by "%s".', $name, $issuer), $code);
     }
 

@@ -84,7 +84,7 @@ readonly class OCSPValidator
         }
 
         $certificateSeq = $this->certificateLoader->fromString($certificate);
-        $issuerCertificate = $this->certificateLoader->fromString($ca->getContents());
+        $issuerCertificate = $this->certificateLoader->fromString($ca->contents);
 
         $ocspResponderUrl = $this->certificateInfo->extractOcspResponderUrl($certificateSeq);
 

@@ -17,7 +17,7 @@ use Rollerworks\Component\X509Validator\Violation\MissingCAExtension;
 use Rollerworks\Component\X509Validator\Violation\TooManyCAsProvided;
 use Rollerworks\Component\X509Validator\Violation\UnableToResolveParent;
 
-class CAResolverImpl implements CAResolver
+final class CAResolverImpl implements CAResolver
 {
     private readonly X509DataExtractor $extractor;
 
@@ -64,6 +64,8 @@ class CAResolverImpl implements CAResolver
     /** @param array<string, string> $caList */
     private function resolveCA(string $certificate, array $caList): CA
     {
+        $parent = null;
+
         foreach ($caList as $index => $contents) {
             $data = $this->extractor->extractRawData($contents, $index, true);
             $this->validateCA($data);
@@ -72,16 +74,16 @@ class CAResolverImpl implements CAResolver
                 continue;
             }
 
-            // Check if self signed, otherwise resolve it's parent
+            // Check if the CA is self signed, otherwise resolve it's parent
             if (! $this->isSignatureValid($contents, $data->pubKey)) {
                 // THIS issuer cannot be the parent of another parent, so remove it
                 // from the list. This speeds-up the resolving process.
                 unset($caList[$index]);
 
-                $this->resolveCA($contents, $caList);
+                $parent = $this->resolveCA($contents, $caList);
             }
 
-            return new CA($contents);
+            return new CA($contents, $parent);
         }
 
         $x509Info = $this->extractor->extractRawData($certificate);
