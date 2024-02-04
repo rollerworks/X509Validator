@@ -1,6 +1,11 @@
 UPGRADE
 =======
 
+## Upgrade FROM 0.2.1 to 0.3.0
+
+* The `CAResolverImpl` is now final and cannot be extended anymore. 
+* The `CA` model class is now final and cannot be extended anymore,
+  reconstruct your own entity instead.
 
 ## Upgrade FROM 0.2.1 to 0.2.2
 
