@@ -22,6 +22,7 @@ use Rollerworks\Component\X509Validator\Violation\MissingCAExtension;
 use Rollerworks\Component\X509Validator\Violation\TooManyCAsProvided;
 use Rollerworks\Component\X509Validator\Violation\UnableToResolveParent;
 use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
+use Rollerworks\Component\X509Validator\X509Info;
 
 /**
  * @internal
@@ -501,7 +502,7 @@ final class CAResolverImplTest extends TestCase
             'DigiCert SHA2 Secure Server CA' => $ca1,
         ]);
 
-        $intermediateCA = new CA($ca1);
+        $intermediateCA = new CA($ca1, new CA($ca2));
 
         self::assertEquals($intermediateCA, $ca);
     }

@@ -13,12 +13,10 @@ declare(strict_types=1);
 
 namespace Rollerworks\Component\X509Validator;
 
-class CA
+final readonly class CA
 {
-    public function __construct(private readonly string $contents) {}
-
-    public function getContents(): string
-    {
-        return $this->contents;
-    }
+    public function __construct(
+        public string $contents,
+        public ?self $parent = null
+    ) {}
 }
