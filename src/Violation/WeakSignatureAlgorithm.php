@@ -22,7 +22,7 @@ final class WeakSignatureAlgorithm extends Violation
 
     public function __construct(string $expected, string $provided)
     {
-        parent::__construct(sprintf('Certificate signature is too weak, expected at least "%s" but got "%s"', $expected, $provided));
+        parent::__construct(\sprintf('Certificate signature is too weak, expected at least "%s" but got "%s"', $expected, $provided));
 
         $this->expected = $expected;
         $this->provided = $provided;

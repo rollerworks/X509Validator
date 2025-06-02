@@ -73,7 +73,7 @@ final class TestLogger extends AbstractLogger
     public function log($level, string | \Stringable $message, array $context = []): void
     {
         if (! \in_array($level, $this->getLogLevels(), true)) {
-            throw new InvalidArgumentException(sprintf('Log level "%1$s" is not valid', $level));
+            throw new InvalidArgumentException(\sprintf('Log level "%1$s" is not valid', $level));
         }
 
         $record = [
@@ -165,9 +165,9 @@ final class TestLogger extends AbstractLogger
     /**
      * Determines whether the logger has logged matching records of the specified level.
      *
-     * @param callable(array{level: \Psr\Log\LogLevel::*, message: string, context: array<mixed>}, int): bool $predicate
-     *                                                                                                                   The function used to evaluate whether a record matches
-     * @param LogLevel::*                                                                                     $level     The level of the record
+     * @param callable(array{level: LogLevel::*, message: string, context: array<mixed>}, int): bool $predicate
+     *                                                                                                          The function used to evaluate whether a record matches
+     * @param LogLevel::*                                                                            $level     The level of the record
      */
     public function hasRecordThatPasses(callable $predicate, string $level): bool
     {

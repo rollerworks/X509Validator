@@ -26,7 +26,8 @@ final class TranslatableArgument implements TranslatableInterface
         private string $message,
         private array $parameters = [],
         private string $domain = 'validators',
-    ) {}
+    ) {
+    }
 
     public function getMessage(): string
     {
@@ -57,7 +58,7 @@ final class TranslatableArgument implements TranslatableInterface
         $this->domain = $data['domain'];
     }
 
-    public function trans(TranslatorInterface $translator, string $locale = null): string
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return $translator->trans($this->getMessage(), $this->getParameters(), $this->domain, $locale);
     }

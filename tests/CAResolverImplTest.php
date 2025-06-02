@@ -22,7 +22,6 @@ use Rollerworks\Component\X509Validator\Violation\MissingCAExtension;
 use Rollerworks\Component\X509Validator\Violation\TooManyCAsProvided;
 use Rollerworks\Component\X509Validator\Violation\UnableToResolveParent;
 use Rollerworks\Component\X509Validator\Violation\UnprocessablePEM;
-use Rollerworks\Component\X509Validator\X509Info;
 
 /**
  * @internal

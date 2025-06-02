@@ -41,9 +41,9 @@ class CertificateValidator
      */
     public function __construct(
         private readonly PublicSuffixList $publicSuffixList,
-        X509DataExtractor $dataExtractor = null,
-        CAResolver $caResolver = null,
-        private ?ClockInterface $clock = null
+        ?X509DataExtractor $dataExtractor = null,
+        ?CAResolver $caResolver = null,
+        private ?ClockInterface $clock = null,
     ) {
         $this->extractor = $dataExtractor ?? new X509DataExtractor();
         $this->caResolver = $caResolver ?? new CAResolverImpl();
@@ -111,7 +111,7 @@ class CertificateValidator
 
             $publicSuffix = $domainInfo->suffix()->toString();
 
-            if (rtrim(mb_substr($domainInfo->toString(), 0, -mb_strlen($publicSuffix)), '.') === '*') {
+            if (mb_rtrim(mb_substr($domainInfo->toString(), 0, -mb_strlen($publicSuffix)), '.') === '*') {
                 throw new GlobalWildcard($domain, $publicSuffix);
             }
         }

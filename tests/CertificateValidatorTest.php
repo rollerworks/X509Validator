@@ -44,7 +44,7 @@ final class CertificateValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->clock = new class() implements ClockInterface {
+        $this->clock = new class implements ClockInterface {
             public ?string $now = '2013-05-29T14:12:14.000000+0000';
 
             public function now(): \DateTimeImmutable
@@ -167,7 +167,7 @@ final class CertificateValidatorTest extends TestCase
             if ($provided === '*') {
                 self::assertTranslationEquals('The certificate host "*" contains an invalid global-wildcard pattern.', $e);
             } else {
-                self::assertTranslationEquals(sprintf('The certificate host "%s" contains an invalid public-suffix wildcard pattern "%s".', $provided, $suffixPattern), $e);
+                self::assertTranslationEquals(\sprintf('The certificate host "%s" contains an invalid public-suffix wildcard pattern "%s".', $provided, $suffixPattern), $e);
             }
         }
     }
@@ -413,7 +413,7 @@ final class CertificateValidatorTest extends TestCase
 
             self::fail('Exception was expected.');
         } catch (UnsupportedDomain $e) {
-            self::assertTranslationEquals(sprintf('The certificate should support host pattern "%s". But only the following patterns are supported: %s.', $hostPattern, $supported), $e);
+            self::assertTranslationEquals(\sprintf('The certificate should support host pattern "%s". But only the following patterns are supported: %s.', $hostPattern, $supported), $e);
 
             self::assertSame(['required_pattern' => $hostPattern, 'supported' => $supported], $e->getParameters());
         }

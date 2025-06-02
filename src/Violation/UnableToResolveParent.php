@@ -20,9 +20,9 @@ final class UnableToResolveParent extends Violation
     public function __construct(
         public readonly string $name,
         public readonly string $issuer,
-        int $code = 1
+        int $code = 1,
     ) {
-        parent::__construct(sprintf('Unable to resolve the parent CA of certificate "%s", issued by "%s".', $name, $issuer), $code);
+        parent::__construct(\sprintf('Unable to resolve the parent CA of certificate "%s", issued by "%s".', $name, $issuer), $code);
     }
 
     public function getTranslatorMsg(): string

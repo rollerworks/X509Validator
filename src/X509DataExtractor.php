@@ -68,7 +68,7 @@ final class X509DataExtractor
 
         $altNames = $this->getAltNames($rawData);
         $rawData += [
-            '_commonName' => trim((string) $rawData['subject']['commonName']),
+            '_commonName' => mb_trim((string) $rawData['subject']['commonName']),
             '_altNames' => $altNames,
             '_emails' => $altNames['rfc822'] ?? [],
             '_signatureAlgorithm' => $rawData['signatureTypeSN'],
@@ -105,7 +105,7 @@ final class X509DataExtractor
         $altNames = [];
 
         foreach (explode(',', (string) $rawData['extensions']['subjectAltName']) as $altName) {
-            [$type, $value] = explode(':', trim($altName), 2);
+            [$type, $value] = explode(':', mb_trim($altName), 2);
             $altNames[mb_strtolower($type)][] = $value;
         }
 

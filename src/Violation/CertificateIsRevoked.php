@@ -66,7 +66,7 @@ final class CertificateIsRevoked extends Violation
     public function __construct(?\DateTimeInterface $revokedOn, ?int $reason, string $serialNumber, public ?OscpResponse $ocspResponse = null)
     {
         parent::__construct(
-            sprintf(
+            \sprintf(
                 'The certificate with serialNumber "%s" is revoked on "%s" due to reason "%s".',
                 $serialNumber,
                 $revokedOn ? $revokedOn->format(\DATE_RFC3339) : 'no-date',

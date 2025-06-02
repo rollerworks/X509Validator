@@ -22,7 +22,7 @@ final class UnsupportedPurpose extends Violation
 
     public function __construct(string $requiredPurpose)
     {
-        parent::__construct(sprintf('Certificate does not support purpose: %s.', $requiredPurpose));
+        parent::__construct(\sprintf('Certificate does not support purpose: %s.', $requiredPurpose));
 
         $this->requiredPurpose = $requiredPurpose;
     }

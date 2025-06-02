@@ -17,6 +17,7 @@ final readonly class CA
 {
     public function __construct(
         public string $contents,
-        public ?self $parent = null
-    ) {}
+        public ?self $parent = null,
+    ) {
+    }
 }
