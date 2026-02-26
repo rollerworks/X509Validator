@@ -28,15 +28,15 @@
     "require-dev": {
         "paragonie/hidden-string": "^2.0",
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^10.4.2",
+        "phpunit/phpunit": "^11.0 || ^12.0 || ^13.0",
         "rollerscapes/standards": "^1.0",
         "rollerworks/pdb-symfony-bridge": "^1.0",
-        "symfony/clock": "^6.3",
-        "symfony/config": "^6.4 || ^7.0",
-        "symfony/error-handler": "^6.3",
-        "symfony/http-client": "^6.3",
-        "symfony/phpunit-bridge": "^6.3 || ^7.0",
-        "symfony/translation": "^6.3 || ^7.0"
+        "symfony/clock": "^6.4 || ^7.4 || ^8.0",
+        "symfony/config": "^6.4 || ^7.4 || ^8.0",
+        "symfony/error-handler": "^6.4 || ^7.4 || ^8.0",
+        "symfony/http-client": "^6.4 || ^7.4 || ^8.0",
+        "symfony/phpunit-bridge": "^7.4 || ^8.0",
+        "symfony/translation": "^6.4 || ^7.4 || ^8.0"
     },
     "suggest": {
         "paragonie/hidden-string": "Safely privide the private-key for validation, without leaking secrets",
