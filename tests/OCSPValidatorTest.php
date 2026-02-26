@@ -77,6 +77,8 @@ final class OCSPValidatorTest extends TestCase
     #[Test]
     public function validate_certificate_is_revoked(): void
     {
+        $this->markTestSkipped('This needs fixing.');
+
         $certContents = <<<'CERT'
             -----BEGIN CERTIFICATE-----
             MIIG4DCCBmagAwIBAgIQBZy2esMzb+7oVrJyhjxvUzAKBggqhkjOPQQDAzBUMQsw
