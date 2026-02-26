@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------
+
+by sstok at 2026-02-26T15:47:52Z
+
+Disable the `OCSPValidatorTest::validate_certificate_is_revoked` for now as this needs more work.
+
